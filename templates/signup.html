@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        /* General reset and responsive styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: url('/static/images/image2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Container (card) styling */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 450px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9); /* Slight transparency */
+            border-radius: 10px;
+            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        /* Heading styling */
+        .container h2 {
+            font-size: 2.5em;
+            color: #4a90e2;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Input fields */
+        .container input[type="email"],
+        .container input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1em;
+            background-color: #f9f9f9;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .container input[type="email"]:focus,
+        .container input[type="password"]:focus {
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+        }
+
+        /* Button styling */
+        .container button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #00c853;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .container button:hover {
+            background-color: #00a944;
+            transform: scale(1.05);
+        }
+
+        /* Link styling */
+        .container p {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .container a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .container a:hover {
+            color: #9013fe;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                max-width: 90%;
+            }
+            .container h2 {
+                font-size: 2.2em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create an Account</h2>
+        <form action="{{ url_for('signup') }}" method="post">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="password" name="password" placeholder="Create a password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="{{ url_for('login_page') }}">Sign In</a></p>
+    </div>
+</body>
+</html>

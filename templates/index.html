@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotic Arm System UI</title>
+    <!-- Adding Fafsa font library -->
+    <link href="https://fonts.googleapis.com/css2?family=Fafsa&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fafsa', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('static/images/high-quality-robotic-arm.jpg') no-repeat center center/cover;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            flex-direction: column;
+            animation: fadeInPage 2s ease-in-out;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar a {
+            color: #0aefff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #fff;
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #0aefff;
+            left: 0;
+            bottom: -5px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .navbar .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar button {
+            background-color: #0aefff;
+            color: #1c3557;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s ease;
+        }
+
+        .navbar button:hover {
+            background-color: #0ad1e1;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            padding: 20px;
+            background-color: rgba(0, 0, 30, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            animation: fadeInContent 2s ease;
+        }
+
+        .title {
+            text-align: center;
+            color: #0aefff;
+            font-size: 3em;
+            font-weight: bold;
+            text-shadow: 0 4px 8px rgba(0, 174, 255, 0.5);
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .details {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            flex: 1;
+            background-color: #1c3557;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: slideIn 1s ease;
+        }
+
+        .components { animation-delay: 0.5s; }
+        .roles { animation-delay: 1s; }
+
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 174, 255, 0.7);
+        }
+
+        .box h2 {
+            color: #0aefff;
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .box ul {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+
+        .box ul li {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 4px 8px rgba(0, 174, 255, 0.5); }
+            50% { text-shadow: 0 6px 12px rgba(0, 174, 255, 0.8); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .details {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .navbar .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .box {
+                padding: 15px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="#">Robotic Arm System</a>
+        </div>
+        <div class="buttons">
+            <button onclick="window.location.href='/signup_page'">Register Now</button>
+            <button onclick="window.location.href='/login_page'">Sign In</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="title">
+            Robotic Arm System Interface
+        </div>
+
+        <div class="content">
+            <div class="details">
+                <div class="box components">
+                    <h2>Robot Components</h2>
+                    <ul>
+                        <li>Robot arm</li>
+                        <li>Robot controller</li>
+                        <li>End-of-arm tool (EoAT)</li>
+                        <li>Actuators</li>
+                        <li>Sensors</li>
+                        <li>Vision systems</li>
+                        <li>Power systems</li>
+                        <li>Software</li>
+                    </ul>
+                </div>
+
+                <div class="box roles">
+                    <h2>Potential Intel Roles</h2>
+                    <ul>
+                        <li>Multi-axis motion control</li>
+                        <li>Safety functions</li>
+                        <li>Robotics controller</li>
+                        <li>HMI</li>
+                        <li>Communications</li>
+                        <li>Vision and AI functions</li>
+                        <li>Motion path planning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

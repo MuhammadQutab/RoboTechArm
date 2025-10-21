@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotic Arm Dashboard</title>
+    <style>
+        /* Basic Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2C3E50, #3498DB);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .command-section, .components-box, .specifications-box {
+            background-color: rgba(44, 62, 80, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #ecf0f1;
+        }
+        input[type="text"], button {
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+            border: none;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        /* Link Styling */
+        .history-link {
+            display: block;
+            margin-top: 20px;
+            color: #3498db;
+            font-size: 18px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .history-link:hover {
+            color: #2980b9;
+        }
+    </style>
+    <script>
+        function sendCommand() {
+            const command = document.getElementById("commandInput").value;
+            fetch('/send_command', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `command=${command}`
+            })
+            .then(response => response.json())
+            .then(data => alert(data.status))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Command Section -->
+        <div class="command-section">
+            <h1>Robotic Arm Control</h1>
+            <input type="text" id="commandInput" placeholder="Enter command (e.g., Pick up Apple)">
+            <button onclick="sendCommand()">Send Command</button>
+            <a href="/history" class="history-link">View Command History</a> <!-- Link to History Page -->
+        </div>
+
+        <!-- Components Used Box -->
+        <div class="components-box">
+            <h2>Components Used</h2>
+            <ul>
+                <li>3 Servo Motors</li>
+                <li>1 Arduino Nano</li>
+                <li>1 NodeMCU</li>
+                <li>1 Robotic Arm Kit</li>
+            </ul>
+        </div>
+
+        <!-- Specifications Box -->
+        <div class="specifications-box">
+            <h2>3-Axis Robotic Arm Specifications</h2>
+            <ul>
+                <li>3 Degrees of Freedom (DOF)</li>
+                <li>Precision Control with Servo Motors</li>
+                <li>Controlled via Arduino Nano and NodeMCU</li>
+                <li>Supports pick and place tasks</li>
+                <li>Maximum Reach: 200mm</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>

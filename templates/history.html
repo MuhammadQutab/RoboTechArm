@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command History</title>
+    <style>
+        /* Reset margin and padding for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* General styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1A2A3A;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            color: #FFD700;
+        }
+        /* Container for history items */
+        #historyContainer {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(44, 62, 80, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        /* Styling for each history item */
+        .history-item {
+            background-color: #34495E;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+        .history-item:hover {
+            transform: scale(1.02);
+            background-color: #3B5998;
+        }
+        /* Styling for command text */
+        .history-item span {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #FFFFFF;
+        }
+        /* Delete button styling */
+        .delete-btn {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+    <script>
+        async function fetchHistory() {
+            const response = await fetch('/get_command_history');
+            const data = await response.json();
+            const historyContainer = document.getElementById('historyContainer');
+            historyContainer.innerHTML = '';
+
+            data.history.forEach((entry, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.classList.add('history-item');
+                historyItem.innerHTML = `
+                    <span>${entry.command} - ${new Date(entry.timestamp).toLocaleString()}</span>
+                    <button class="delete-btn" onclick="deleteCommand('${entry.key}')">Delete</button>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        async function deleteCommand(key) {
+            console.log(`Deleting command with key: ${key}`);  // Debugging: log the key
+            const response = await fetch(`/delete_command/${key}`, { method: 'DELETE' });
+            const data = await response.json();
+            alert(data.status); // Show status message
+            await fetchHistory(); // Refresh the history after deletion
+        }
+
+        window.onload = fetchHistory;
+    </script>
+</head>
+<body>
+    <div>
+        <h1>Command History</h1>
+        <div id="historyContainer"></div>
+    </div>
+</body>
+</html>
