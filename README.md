@@ -5,7 +5,9 @@ Vision-assisted robotic arm (Final Year Project). YOLOv8 detects fruits; a Flask
 ## 🔗 Demo
 - Video:
 
-https://github.com/user-attachments/assets/10d47e20-bb5c-4629-a8f0-d88f50c51826
+
+https://github.com/user-attachments/assets/147a7aa0-bd0e-40b1-a19c-c66cf07a9600
+
 
 - Screenshots: see `/assets`
 
